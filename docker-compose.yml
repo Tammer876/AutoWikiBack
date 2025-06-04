@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  mariadb:
+    image: mariadb:11
+    container_name: wikicars-db
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: rootpassword
+      MARIADB_DATABASE: wikicars
+    ports:
+      - "3306:3306"
+    volumes:
+      - wikicars_data:/var/lib/mysql
+
+volumes:
+  wikicars_data:
