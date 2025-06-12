@@ -21,7 +21,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .withUsername(user.getEmail())
                 .password(user.getPassword())
                 .authorities("ROLE_" + user.getRole())  // важливо: ROLE_USER або ROLE_ADMIN
-                .accountLocked(!user.isEnabled())
+                .disabled(!user.isEnabled())
                 .build();
     }
 }

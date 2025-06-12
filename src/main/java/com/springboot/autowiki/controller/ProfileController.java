@@ -20,7 +20,7 @@ public class ProfileController {
         this.userRepository = userRepository;
     }
     @Tag(name = "User profile", description = "User profile operations")
-    @Operation(summary = "Отримати поточного користувача", security = @SecurityRequirement(name = "bearerAuth"))
+    @Operation(summary = "Get current user profile", security = @SecurityRequirement(name = "bearerAuth"))
     @GetMapping("/me")
     public UserProfileResponse getProfile(@AuthenticationPrincipal UserDetails userDetails) {
         User user = userRepository.findByEmail(userDetails.getUsername())
