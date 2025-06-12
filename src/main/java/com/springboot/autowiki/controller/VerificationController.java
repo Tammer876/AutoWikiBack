@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "User activation", description = "User activation and email verification operations")
+@Tag(name = "User activation", description = "User activation and email verification")
 @RestController
 @RequestMapping("/api")
 public class VerificationController {
