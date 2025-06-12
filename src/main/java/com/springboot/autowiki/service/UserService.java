@@ -52,6 +52,21 @@ public class UserService {
         return savedUser;
     }
 
+    public void resendVerificationEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User with this email does not exist."));
+
+        if (user.isEnabled()) {
+            throw new RuntimeException("Account is already verified.");
+        }
+
+        String newToken = mailService.generateVerificationToken();
+        user.setVerificationToken(newToken);
+        userRepository.save(user);
+
+        mailService.sendVerificationEmail(user);
+    }
+
     public boolean activateUser(String token) {
         Optional<User> optionalUser = userRepository.findByVerificationToken(token);
 
