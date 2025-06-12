@@ -1,0 +1,39 @@
+name: CI Workflow for WikiCars
+on:
+  push:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+run-name: "Run CI for ${{ github.ref_name }} triggered by @${{ github.actor }}"
+
+jobs:
+  check-build-is-ok:
+    name: Build ${{ matrix.platform }}
+    strategy:
+      matrix:
+        include:
+          - platform: linux/arm64
+            runner: ubuntu-24.04-arm
+          - platform: linux/amd64
+            runner: ubuntu-latest
+    runs-on:
+      labels:
+        - ${{ matrix.runner }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+
+      - name: Setup Builder
+        uses: docker/setup-buildx-action@v3
+
+      - name: Try to Build
+        uses: docker/build-push-action@v5
+        with:
+          file: ./Dockerfile
+          context: .
+          push: false
+          provenance: false
+          no-cache: true

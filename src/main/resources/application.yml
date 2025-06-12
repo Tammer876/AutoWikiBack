@@ -1,13 +1,6 @@
 server:
   port: 8080
-
 spring:
-  datasource:
-    url: jdbc:mariadb://localhost:3306/wikicars
-    username: root
-    password: rootpassword
-    driver-class-name: org.mariadb.jdbc.Driver
-
   jpa:
     hibernate:
       ddl-auto: none
