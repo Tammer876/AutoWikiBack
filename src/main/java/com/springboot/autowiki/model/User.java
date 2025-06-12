@@ -29,6 +29,9 @@ public class User {
     @Column(name = "verification_token")
     private String verificationToken;
 
+    @Column(name = "password_reset_token")
+    private String passwordResetToken;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
 
@@ -66,4 +69,7 @@ public class User {
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    public String getPasswordResetToken() { return passwordResetToken; }
+    public void setPasswordResetToken(String token) { this.passwordResetToken = token; }
 }

@@ -1,0 +1,71 @@
+name: Deploy to production
+
+on:
+  push:
+    branches:
+      - main
+
+run-name: "Deploy to production ${{ github.ref_name }} triggered by @${{ github.actor }}"
+
+jobs:
+  set-version:
+    runs-on: ubuntu-latest
+    outputs:
+      BUILD_REVISION: ${{ steps.set-version.outputs.BUILD_REVISION }}
+    steps:
+      - uses: actions/checkout@v4
+        name: Repository checkout
+      - name: set build metadata
+        id: set-version
+        run: |
+          set -e
+          echo "BUILD_REVISION=${{ github.sha }}" >> "$GITHUB_OUTPUT"
+          echo BUILD_REVISION=${{ github.sha }}
+
+  container-build:
+    name: Production docker image build
+    needs: [ set-version ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        name: Repository checkout
+      - uses: docker/setup-buildx-action@v3
+        name: Install docker build env
+      - uses: docker/login-action@v3
+        name: Login to dockerhub
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - uses: docker/build-push-action@v5
+        name: Build and push docker image
+        with:
+          file: ./Dockerfile
+          context: .
+          push: true
+          provenance: false
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          tags: |
+            ${{ secrets.DOCKERHUB_USER }}/autowiki:${{ needs.set-version.outputs.BUILD_REVISION }}
+            ${{ secrets.DOCKERHUB_USER }}/autowiki:production
+
+  deployment:
+    name: Deploy to production server
+    needs: [ set-version, container-build ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.PRODUCTION_PRIVATE_KEY }}
+
+      - name: SSH and Deploy
+        run: |
+          ssh -o StrictHostKeyChecking=no root@${{ secrets.PRODUCTION_IP }} << EOF
+            cd /root/autowiki
+            echo Deploying revision ${{ needs.set-version.outputs.BUILD_REVISION }}
+            docker compose stop backend
+            docker rm backend
+            docker image rm ${{ secrets.DOCKERHUB_USER }}/autowiki:production
+            docker compose up -d backend
+          EOF
