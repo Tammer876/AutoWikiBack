@@ -22,7 +22,7 @@ public class CarService {
                          Integer enginePower, Integer engineTorque, Integer productionStartYear, Integer productionEndYear,
                          Integer price, Integer numberOfSeats, String bodyType, Integer numberOfDoors, Integer length,
                          Integer width, Integer height, Integer wheelbase, Integer weight, BigDecimal accelerationToHundred,
-                         Integer topSpeed, String driveWheelsConfiguration, BigDecimal weightPerHp, String imageUrl) {
+                         Integer topSpeed, String driveWheelsConfiguration, BigDecimal weightPerHP, String imageUrl) {
 
         if (carRepository.existsByModel(model)) {
             throw new CarAlreadyExistsException("Such car model already exists in the database.");
@@ -59,7 +59,7 @@ public class CarService {
         car.setAccelerationToHundred(accelerationToHundred);
         car.setTopSpeed(topSpeed);
         car.setDriveWheelsConfiguration(driveWheelsConfiguration);
-        car.setWeightPerHp(weightPerHp);
+        car.setWeightPerHP(weightPerHP);
         car.setImageUrl(imageUrl);
 
         Car savedCar;

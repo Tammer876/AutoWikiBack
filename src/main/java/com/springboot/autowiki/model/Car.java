@@ -279,11 +279,11 @@ public class Car {
         this.driveWheelsConfiguration = driveWheelsConfiguration;
     }
 
-    public BigDecimal getWeightPerHp() {
+    public BigDecimal getWeightPerHP() {
         return weightPerHP;
     }
 
-    public void setWeightPerHp(BigDecimal weightPerHp) {
+    public void setWeightPerHP(BigDecimal weightPerHP) {
         this.weightPerHP = weightPerHP;
     }
 
