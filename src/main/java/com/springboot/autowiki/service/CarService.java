@@ -6,7 +6,7 @@ import com.springboot.autowiki.exception.RegularCarWithoutEngineDisplacementExce
 import com.springboot.autowiki.model.Car;
 import org.springframework.stereotype.Service;
 import com.springboot.autowiki.repository.CarRepository;
-
+import java.util.List;
 import java.math.BigDecimal;
 
 
@@ -66,6 +66,10 @@ public class CarService {
         savedCar = carRepository.save(car);
 
         return savedCar;
+    }
+
+    public List<Car> getAllCars() {
+        return carRepository.findAll();
     }
 
 }
