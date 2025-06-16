@@ -15,7 +15,7 @@ public class OpenApiConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         Server server = new Server()
-                .url("https://autowiki.uk")
+                .url("http://localhost:8080")
                 .description("Production Server");
         return new OpenAPI()
                 .info(new Info()

@@ -1,19 +1,16 @@
-package com.springboot.autowiki.model;
+package com.springboot.autowiki.dto;
+
 
 import jakarta.annotation.Nullable;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "cars")
-public class Car {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotBlank(message = "Manufacturer is required")
+public class CarCreationRequest {
+    @NotBlank(message = "Brand is required")
     private String manufacturer;
 
     @NotBlank(message = "Model is required")
@@ -96,18 +93,10 @@ public class Car {
 
     @NotBlank(message = "Weight to horsepower ratio is required")
     @Positive(message = "The value must be greater than zero")
-    private BigDecimal weightPerHp;
+    private BigDecimal weightPerHP;
 
     @NotBlank(message = "Image url is required")
     private String imageUrl;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getManufacturer() {
         return manufacturer;
@@ -279,12 +268,12 @@ public class Car {
         this.driveWheelsConfiguration = driveWheelsConfiguration;
     }
 
-    public BigDecimal getWeightPerHp() {
-        return weightPerHp;
+    public BigDecimal getWeightPerHP() {
+        return weightPerHP;
     }
 
-    public void setWeightPerHp(BigDecimal weightPerHp) {
-        this.weightPerHp = weightPerHp;
+    public void setWeightPerHP(BigDecimal weightPerHP) {
+        this.weightPerHP = weightPerHP;
     }
 
     public String getImageUrl() {

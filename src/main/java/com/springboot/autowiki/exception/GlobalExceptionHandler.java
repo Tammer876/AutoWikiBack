@@ -28,5 +28,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 
+
     // Можна буде додати інші @ExceptionHandler пізніше (наприклад, IllegalArgumentException)
 }

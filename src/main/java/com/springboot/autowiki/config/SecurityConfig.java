@@ -38,7 +38,8 @@ public class SecurityConfig {
                                 "/webjars/**",
                                 "/favicon.ico",
                                 "/api/request-password-reset",
-                                "/api/reset-password"
+                                "/api/reset-password",
+                                "/api/newcar"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
