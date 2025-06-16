@@ -68,10 +68,6 @@ public class CarService {
         return savedCar;
     }
 
-    public List<Car> getAllCars() {
-        return carRepository.findAll();
-    }
-
 }
 // gear_type fuel_type engine_displacement engine_power engine_torque production_start_year production_end_year price number_of_seats body_type number_of_doors length width
 //height wheelbase weight
