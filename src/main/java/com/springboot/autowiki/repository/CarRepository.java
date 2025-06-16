@@ -4,32 +4,32 @@ package com.springboot.autowiki.repository;
 import com.springboot.autowiki.model.Car;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
 public interface CarRepository extends JpaRepository<Car, Long> {
 
-    Optional<Car> FindByModel(String model);
-    Optional<Car> FindByManufacturer(String manufacturer);
-    Optional<Car> FindByDriveWheelsConfiguration(String driveWheelsConfiguration);
-    Optional<Car> FindByFuelType(String fuelType);
-    Optional<Car> FindByGearType(String gearType);
-    Optional<Car> FindByBodyType(String bodyType);
+    Optional<Car> findByModel(String model);
+    Optional<Car> findByManufacturer(String manufacturer);
+    Optional<Car> findByDriveWheelsConfiguration(String driveWheelsConfiguration);
+    Optional<Car> findByFuelType(String fuelType);
+    Optional<Car> findByGearType(String gearType);
+    Optional<Car> findByBodyType(String bodyType);
 
-    boolean ExistsByModel(String model);
+    boolean existsByModel(String model);
 
-    List<Car> FindByEngineDisplacementBetween(Integer min, Integer max);
-    List<Car> FindByEngineTorqueBetween(Integer min,  Integer max);
-    List<Car> FindByProductionYearBetween(Integer min,  Integer max);
-    List<Car> FindByPriceBetween(Integer min,  Integer max);
-    List<Car> FindByNumberOfSeatsBetween(Integer min,  Integer max);
-    List<Car> FindByEnginePowerBetween(Integer min, Integer max);
-    List<Car> FindByDimensionBetween(Integer min,  Integer max);
-    List<Car> FindByWheelBaseBetween(Integer min,  Integer max);
-    List<Car> FindByWeightBetween(Integer min,  Integer max);
-    List<Car> FindByAccelerationToHundredBetween(Integer min,  Integer max);
-    List<Car> FindTopSpeedByBetween(Integer min,  Integer max);
-    List<Car> FindByWeightPerHpBetween(Integer min,  Integer max);
+    List<Car> findByEngineDisplacementBetween(Integer min, Integer max);
+    List<Car> findByEngineTorqueBetween(Integer min,  Integer max);
+    List<Car> findByProductionStartYearBetween(Integer min, Integer max);
+    List<Car> findByProductionEndYearBetween(Integer min, Integer max);
+    List<Car> findByPriceBetween(Integer min,  Integer max);
+    List<Car> findByNumberOfSeatsBetween(Integer min,  Integer max);
+    List<Car> findByEnginePowerBetween(Integer min, Integer max);
+    List<Car> findByWheelbaseBetween(Integer min, Integer max);
+    List<Car> findByWeightBetween(Integer min,  Integer max);
+    List<Car> findByAccelerationToHundredBetween(BigDecimal min, Integer max);
+    List<Car> findByWeightPerHpBetween(BigDecimal min, BigDecimal max);
 
 
 }

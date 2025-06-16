@@ -24,12 +24,14 @@ public class CarService {
                          Integer width, Integer height, Integer wheelbase, Integer weight, BigDecimal accelerationToHundred,
                          Integer topSpeed, String driveWheelsConfiguration, BigDecimal weightPerHp, String imageUrl) {
 
-        if (carRepository.ExistsByModel(model)) {
+        if (carRepository.existsByModel(model)) {
             throw new CarAlreadyExistsException("Such car model already exists in the database.");
         }
 
-        if (fuelType != "Electric" && engineDisplacement.equals(null)) {
+        if (!"Electric".equals(fuelType) && engineDisplacement == null) {
             throw new RegularCarWithoutEngineDisplacementException("The engine displacement cannot be null for non electric cars.");
+        } else if ("Electric".equals(fuelType) && engineDisplacement != null) {
+            throw new ElectricCarWithEngineDisplacementException("Invalid engine displacement value for an electric car.");
         }
         else if (fuelType.equals("Electric") && (engineDisplacement != null)) {
             throw new ElectricCarWithEngineDisplacementException("Invalid engine displacement value for an electric car.");
