@@ -62,7 +62,8 @@ public class CarService {
         car.setWeightPerHp(weightPerHp);
         car.setImageUrl(imageUrl);
 
-        Car savedCar = carRepository.save(car);
+        Car savedCar;
+        savedCar = carRepository.save(car);
 
         return savedCar;
     }
