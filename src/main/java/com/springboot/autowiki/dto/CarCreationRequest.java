@@ -19,7 +19,7 @@ public class CarCreationRequest {
     @NotBlank(message = "Gear is required")
     private String gearType;
 
-    @NotBlank(message = "Fuel type is required")
+
     @Pattern(regexp = "Petrol|Diesel|Electric|Hybrid", message = "Fuel type must be either Petrol, Diesel, Electric, or Hybrid")
     private String fuelType;
 
@@ -27,15 +27,15 @@ public class CarCreationRequest {
     @Nullable
     private Integer engineDisplacement;
 
-    @NotBlank(message = "Engine power is required")
+
     @Positive(message = "The value must be greater than zero")
     private Integer enginePower;
 
-    @NotBlank(message = "Engine torque is required")
+
     @Positive(message = "The value must be greater than zero")
     private Integer engineTorque;
 
-    @NotBlank(message = "Production start year is required")
+
     @Digits(fraction = 0, integer = 4, message = "Must contain 4 digits only")
     @Positive(message = "The value must be greater than zero")
     private Integer productionStartYear;
@@ -45,57 +45,57 @@ public class CarCreationRequest {
     @Digits(fraction = 0, integer = 4, message = "Must contain 4 digits only")
     private Integer productionEndYear;
 
-    @NotBlank(message = "Price is required")
+
     @Positive(message = "The value must be greater than zero")
     private Integer price;
 
-    @NotBlank(message = "Number of seats value is required")
+
     @Positive(message = "The value must be greater than zero")
     private Integer numberOfSeats;
 
-    @NotBlank(message = "Body type is required")
+
     private String bodyType;
 
-    @NotBlank(message = "Number of doors value is required")
+
     @Positive(message = "The value must be greater than zero")
     private Integer numberOfDoors;
 
-    @NotBlank(message = "Length is required")
+
     @Positive(message = "The value must be greater than zero")
     private Integer length;
 
-    @NotBlank(message = "Width is required")
+
     @Positive(message = "The value must be greater than zero")
     private Integer width;
 
-    @NotBlank(message = "Height is required")
+
     @Positive(message = "The value must be greater than zero")
     private Integer height;
 
-    @NotBlank(message = "Wheelbase is required")
+
     @Positive(message = "The value must be greater than zero")
     private Integer wheelbase;
 
-    @NotBlank(message = "Weight is required")
+
     @Positive(message = "The value must be greater than zero")
     private Integer weight;
 
-    @NotBlank(message = "Acceleration to 100km/h is required")
+
     @Positive(message = "The value must be greater than zero")
     BigDecimal accelerationToHundred;
 
-    @NotBlank(message = "Top speed is required")
+
     @Positive(message = "The value must be greater than zero")
     private Integer topSpeed;
 
-    @NotBlank(message = "Drive wheels configuration is required")
+
     private String driveWheelsConfiguration;
 
-    @NotBlank(message = "Weight to horsepower ratio is required")
+
     @Positive(message = "The value must be greater than zero")
     private BigDecimal weightPerHP;
 
-    @NotBlank(message = "Image url is required")
+
     private String imageUrl;
 
     public String getManufacturer() {
