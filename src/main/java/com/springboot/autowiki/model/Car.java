@@ -96,7 +96,7 @@ public class Car {
 
 
     @Positive(message = "The value must be greater than zero")
-    private BigDecimal weightPerHp;
+    private BigDecimal weightPerHP;
 
     @NotBlank(message = "Image url is required")
     private String imageUrl;
@@ -280,11 +280,11 @@ public class Car {
     }
 
     public BigDecimal getWeightPerHp() {
-        return weightPerHp;
+        return weightPerHP;
     }
 
     public void setWeightPerHp(BigDecimal weightPerHp) {
-        this.weightPerHp = weightPerHp;
+        this.weightPerHP = weightPerHP;
     }
 
     public String getImageUrl() {

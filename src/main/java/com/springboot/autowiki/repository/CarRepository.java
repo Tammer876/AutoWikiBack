@@ -29,7 +29,7 @@ public interface CarRepository extends JpaRepository<Car, Long> {
     List<Car> findByWheelbaseBetween(Integer min, Integer max);
     List<Car> findByWeightBetween(Integer min,  Integer max);
     List<Car> findByAccelerationToHundredBetween(BigDecimal min, Integer max);
-    List<Car> findByWeightPerHpBetween(BigDecimal min, BigDecimal max);
+    List<Car> findByWeightPerHPBetween(BigDecimal min, BigDecimal max);
 
 
 }
