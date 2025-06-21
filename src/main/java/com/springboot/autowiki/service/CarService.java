@@ -68,6 +68,76 @@ public class CarService {
         return savedCar;
     }
 
+    public List<Car> sortCars(String sortingOption, @Nullable String stringValue, @Nullable BigDecimal minValue,
+                              @Nullable BigDecimal maxValue) {
+        List<Car> sortedCars = null;
+        Pattern patternForStringSpecs = Pattern.compile("Manufacturer|DriveWheelsConfiguration|FuelType|GearType|BodyType");
+        Matcher matcherForStringSpecs = patternForStringSpecs.matcher(sortingOption);
+
+        if  (matcherForStringSpecs.find()) {
+            if (!(stringValue.isBlank())) {
+                switch (sortingOption) {
+                    case "Manufacturer":
+                        sortedCars = carRepository.findAllByManufacturer(stringValue);
+                        break;
+                    case "DriveWheelsConfiguration":
+                        sortedCars = carRepository.findAllByDriveWheelsConfiguration(stringValue);
+                        break;
+                    case "FuelType":
+                        sortedCars = carRepository.findAllByFuelType(stringValue);
+                        break;
+                    case "GearType":
+                        sortedCars = carRepository.findAllByGearType(stringValue);
+                        break;
+                    case "BodyType":
+                        sortedCars = carRepository.findAllByBodyType(stringValue);
+                        break;
+                }
+            }
+            else throw new InvalidParameterException("The search parameter for manufacturer/drive wheels configuration/fuel type/gear type/body type cannot be empty.");
+        }
+        else if (!(minValue).equals(null) && !(maxValue).equals(null)) {
+            switch (sortingOption) {
+                case "EngineDisplacementBetween":
+                    sortedCars = carRepository.findByEngineDisplacementBetween(minValue.intValue(), maxValue.intValue());
+                    break;
+                case "EngineTorqueBetween":
+                    sortedCars = carRepository.findByEngineTorqueBetween(minValue.intValue(), maxValue.intValue());
+                    break;
+                case "ProductionStartYearBetween":
+                    sortedCars = carRepository.findByProductionStartYearBetween(minValue.intValue(), maxValue.intValue());
+                    break;
+                case "ProductionEndYearBetween":
+                    sortedCars = carRepository.findByProductionEndYearBetween(minValue.intValue(), maxValue.intValue());
+                    break;
+                case "PriceBetween":
+                    sortedCars = carRepository.findByPriceBetween(minValue.intValue(), maxValue.intValue());
+                    break;
+                case "NumberOfSeatsBetween":
+                    sortedCars = carRepository.findByNumberOfSeatsBetween(minValue.intValue(), maxValue.intValue());
+                    break;
+                case "EnginePowerBetween":
+                    sortedCars = carRepository.findByEnginePowerBetween(minValue.intValue(), maxValue.intValue());
+                    break;
+                case "WheelbaseBetween":
+                    sortedCars = carRepository.findByWheelbaseBetween(minValue.intValue(), maxValue.intValue());
+                    break;
+                case "WeightBetween":
+                    sortedCars = carRepository.findByWeightBetween(minValue.intValue(), maxValue.intValue());
+                    break;
+                case "AccelerationToHundredBetween":
+                    sortedCars = carRepository.findByAccelerationToHundredBetween(minValue, maxValue);
+                    break;
+                case "WeightPerHPBetween":
+                    sortedCars = carRepository.findByWeightPerHPBetween(minValue, maxValue);
+                    break;
+            }
+        }
+        else throw new InvalidParameterException("The minimum/maximum values for searching cannot be null.");
+
+        return sortedCars;
+    }
+
 }
 // gear_type fuel_type engine_displacement engine_power engine_torque production_start_year production_end_year price number_of_seats body_type number_of_doors length width
 //height wheelbase weight
