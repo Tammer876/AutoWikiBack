@@ -39,7 +39,8 @@ public class SecurityConfig {
                                 "/favicon.ico",
                                 "/api/request-password-reset",
                                 "/api/reset-password",
-                                "/api/newcar"
+                                "/api/newcar",
+                                "/api/carlist"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

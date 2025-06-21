@@ -1,5 +1,6 @@
 package com.springboot.autowiki.controller;
 
+import com.springboot.autowiki.dto.CarListingResponse;
 import com.springboot.autowiki.model.Car;
 import com.springboot.autowiki.repository.CarRepository;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +18,9 @@ public class CarController {
     public CarController(CarRepository carRepository) {
         this.carRepository = carRepository;
     }
+
     @PostMapping("/carlist")
-    public List<Car> getAllCars() {
-        return carRepository.findAll();
+    public CarListingResponse getAllCars() {
+        return new CarListingResponse(carRepository.findAll());
     }
 }
