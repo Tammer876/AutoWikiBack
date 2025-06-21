@@ -11,13 +11,14 @@ import java.util.Optional;
 public interface CarRepository extends JpaRepository<Car, Long> {
 
     Optional<Car> findByModel(String model);
-    Optional<Car> findByManufacturer(String manufacturer);
-    Optional<Car> findByDriveWheelsConfiguration(String driveWheelsConfiguration);
-    Optional<Car> findByFuelType(String fuelType);
-    Optional<Car> findByGearType(String gearType);
-    Optional<Car> findByBodyType(String bodyType);
 
     boolean existsByModel(String model);
+
+    List<Car> findAllByManufacturer(String manufacturer);
+    List<Car> findAllByDriveWheelsConfiguration(String driveWheelsConfiguration);
+    List<Car> findAllByFuelType(String fuelType);
+    List<Car> findAllByGearType(String gearType);
+    List<Car> findAllByBodyType(String bodyType);
 
     List<Car> findByEngineDisplacementBetween(Integer min, Integer max);
     List<Car> findByEngineTorqueBetween(Integer min,  Integer max);
@@ -28,7 +29,7 @@ public interface CarRepository extends JpaRepository<Car, Long> {
     List<Car> findByEnginePowerBetween(Integer min, Integer max);
     List<Car> findByWheelbaseBetween(Integer min, Integer max);
     List<Car> findByWeightBetween(Integer min,  Integer max);
-    List<Car> findByAccelerationToHundredBetween(BigDecimal min, Integer max);
+    List<Car> findByAccelerationToHundredBetween(BigDecimal min, BigDecimal max);
     List<Car> findByWeightPerHPBetween(BigDecimal min, BigDecimal max);
 
 
