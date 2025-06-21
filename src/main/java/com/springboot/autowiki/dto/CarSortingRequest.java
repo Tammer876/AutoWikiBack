@@ -25,4 +25,30 @@ public class CarSortingRequest {
     @Positive(message = "The value must be greater than zero")
     private BigDecimal maximumValue;
 
+    public String getSortingOption() {
+        return sortingOption;
+    }
+
+    public void setSortingOption(String sortingOption) {
+        this.sortingOption = sortingOption;
+    }
+
+    @Nullable
+    public BigDecimal getMinimumValue() {
+        return minimumValue;
+    }
+
+    public void setMinimumValue(@Nullable BigDecimal minimumValue) {
+        this.minimumValue = minimumValue;
+    }
+
+    @Nullable
+    public BigDecimal getMaximumValue() {
+        return maximumValue;
+    }
+
+    public void setMaximumValue(@Nullable BigDecimal maximumValue) {
+        this.maximumValue = maximumValue;
+    }
+
 }
