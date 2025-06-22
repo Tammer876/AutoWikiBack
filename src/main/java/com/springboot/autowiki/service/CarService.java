@@ -4,10 +4,16 @@ import com.springboot.autowiki.exception.CarAlreadyExistsException;
 import com.springboot.autowiki.exception.ElectricCarWithEngineDisplacementException;
 import com.springboot.autowiki.exception.RegularCarWithoutEngineDisplacementException;
 import com.springboot.autowiki.model.Car;
+import jakarta.annotation.Nullable;
 import org.springframework.stereotype.Service;
 import com.springboot.autowiki.repository.CarRepository;
+
+import java.security.InvalidParameterException;
 import java.util.List;
 import java.math.BigDecimal;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Service
@@ -76,62 +82,40 @@ public class CarService {
 
         if  (matcherForStringSpecs.find()) {
             if (!(stringValue.isBlank())) {
-                switch (sortingOption) {
-                    case "Manufacturer":
-                        sortedCars = carRepository.findAllByManufacturer(stringValue);
-                        break;
-                    case "DriveWheelsConfiguration":
-                        sortedCars = carRepository.findAllByDriveWheelsConfiguration(stringValue);
-                        break;
-                    case "FuelType":
-                        sortedCars = carRepository.findAllByFuelType(stringValue);
-                        break;
-                    case "GearType":
-                        sortedCars = carRepository.findAllByGearType(stringValue);
-                        break;
-                    case "BodyType":
-                        sortedCars = carRepository.findAllByBodyType(stringValue);
-                        break;
-                }
+                sortedCars = switch (sortingOption) {
+                    case "Manufacturer" -> carRepository.findAllByManufacturer(stringValue);
+                    case "DriveWheelsConfiguration" -> carRepository.findAllByDriveWheelsConfiguration(stringValue);
+                    case "FuelType" -> carRepository.findAllByFuelType(stringValue);
+                    case "GearType" -> carRepository.findAllByGearType(stringValue);
+                    case "BodyType" -> carRepository.findAllByBodyType(stringValue);
+                    default -> sortedCars;
+                };
             }
             else throw new InvalidParameterException("The search parameter for manufacturer/drive wheels configuration/fuel type/gear type/body type cannot be empty.");
         }
         else if (!(minValue).equals(null) && !(maxValue).equals(null)) {
-            switch (sortingOption) {
-                case "EngineDisplacementBetween":
-                    sortedCars = carRepository.findByEngineDisplacementBetween(minValue.intValue(), maxValue.intValue());
-                    break;
-                case "EngineTorqueBetween":
-                    sortedCars = carRepository.findByEngineTorqueBetween(minValue.intValue(), maxValue.intValue());
-                    break;
-                case "ProductionStartYearBetween":
-                    sortedCars = carRepository.findByProductionStartYearBetween(minValue.intValue(), maxValue.intValue());
-                    break;
-                case "ProductionEndYearBetween":
-                    sortedCars = carRepository.findByProductionEndYearBetween(minValue.intValue(), maxValue.intValue());
-                    break;
-                case "PriceBetween":
-                    sortedCars = carRepository.findByPriceBetween(minValue.intValue(), maxValue.intValue());
-                    break;
-                case "NumberOfSeatsBetween":
-                    sortedCars = carRepository.findByNumberOfSeatsBetween(minValue.intValue(), maxValue.intValue());
-                    break;
-                case "EnginePowerBetween":
-                    sortedCars = carRepository.findByEnginePowerBetween(minValue.intValue(), maxValue.intValue());
-                    break;
-                case "WheelbaseBetween":
-                    sortedCars = carRepository.findByWheelbaseBetween(minValue.intValue(), maxValue.intValue());
-                    break;
-                case "WeightBetween":
-                    sortedCars = carRepository.findByWeightBetween(minValue.intValue(), maxValue.intValue());
-                    break;
-                case "AccelerationToHundredBetween":
-                    sortedCars = carRepository.findByAccelerationToHundredBetween(minValue, maxValue);
-                    break;
-                case "WeightPerHPBetween":
-                    sortedCars = carRepository.findByWeightPerHPBetween(minValue, maxValue);
-                    break;
-            }
+            sortedCars = switch (sortingOption) {
+                case "EngineDisplacementBetween" ->
+                        carRepository.findByEngineDisplacementBetween(minValue.intValue(), maxValue.intValue());
+                case "EngineTorqueBetween" ->
+                        carRepository.findByEngineTorqueBetween(minValue.intValue(), maxValue.intValue());
+                case "ProductionStartYearBetween" ->
+                        carRepository.findByProductionStartYearBetween(minValue.intValue(), maxValue.intValue());
+                case "ProductionEndYearBetween" ->
+                        carRepository.findByProductionEndYearBetween(minValue.intValue(), maxValue.intValue());
+                case "PriceBetween" -> carRepository.findByPriceBetween(minValue.intValue(), maxValue.intValue());
+                case "NumberOfSeatsBetween" ->
+                        carRepository.findByNumberOfSeatsBetween(minValue.intValue(), maxValue.intValue());
+                case "EnginePowerBetween" ->
+                        carRepository.findByEnginePowerBetween(minValue.intValue(), maxValue.intValue());
+                case "WheelbaseBetween" ->
+                        carRepository.findByWheelbaseBetween(minValue.intValue(), maxValue.intValue());
+                case "WeightBetween" -> carRepository.findByWeightBetween(minValue.intValue(), maxValue.intValue());
+                case "AccelerationToHundredBetween" ->
+                        carRepository.findByAccelerationToHundredBetween(minValue, maxValue);
+                case "WeightPerHPBetween" -> carRepository.findByWeightPerHPBetween(minValue, maxValue);
+                default -> sortedCars;
+            };
         }
         else throw new InvalidParameterException("The minimum/maximum values for searching cannot be null.");
 
