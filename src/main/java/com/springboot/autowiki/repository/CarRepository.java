@@ -14,23 +14,23 @@ public interface CarRepository extends JpaRepository<Car, Long> {
 
     boolean existsByModel(String model);
 
-    List<Car> findAllByManufacturer(String manufacturer);
+    List<Car> findAllByManufacturerOrderByProductionStartYearDesc(String manufacturer);
     List<Car> findAllByDriveWheelsConfiguration(String driveWheelsConfiguration);
     List<Car> findAllByFuelType(String fuelType);
     List<Car> findAllByGearType(String gearType);
     List<Car> findAllByBodyType(String bodyType);
 
-    List<Car> findByEngineDisplacementBetween(Integer min, Integer max);
-    List<Car> findByEngineTorqueBetween(Integer min,  Integer max);
-    List<Car> findByProductionStartYearBetween(Integer min, Integer max);
-    List<Car> findByProductionEndYearBetween(Integer min, Integer max);
-    List<Car> findByPriceBetween(Integer min,  Integer max);
-    List<Car> findByNumberOfSeatsBetween(Integer min,  Integer max);
-    List<Car> findByEnginePowerBetween(Integer min, Integer max);
-    List<Car> findByWheelbaseBetween(Integer min, Integer max);
-    List<Car> findByWeightBetween(Integer min,  Integer max);
-    List<Car> findByAccelerationToHundredBetween(BigDecimal min, BigDecimal max);
-    List<Car> findByWeightPerHPBetween(BigDecimal min, BigDecimal max);
+    List<Car> findByEngineDisplacementBetweenOrderByEngineDisplacementDesc(Integer min, Integer max);
+    List<Car> findByEngineTorqueBetweenOrderByEngineTorqueDesc(Integer min, Integer max);
+    List<Car> findByProductionStartYearBetweenOrderByProductionStartYearDesc(Integer min, Integer max);
+    List<Car> findByProductionEndYearBetweenOrderByProductionEndYearDesc(Integer min, Integer max);
+    List<Car> findByPriceBetweenOrderByPriceDesc(Integer min, Integer max);
+    List<Car> findByNumberOfSeatsBetweenOrderByNumberOfSeatsDesc(Integer min, Integer max);
+    List<Car> findByEnginePowerBetweenOrderByEnginePowerDesc(Integer min, Integer max);
+    List<Car> findByWheelbaseBetweenOrderByWheelbaseDesc(Integer min, Integer max);
+    List<Car> findByWeightBetweenOrderByWeightDesc(Integer min, Integer max);
+    List<Car> findByAccelerationToHundredBetweenOrderByAccelerationToHundredDesc(BigDecimal min, BigDecimal max);
+    List<Car> findByWeightPerHPBetweenOrderByWeightPerHPDesc(BigDecimal min, BigDecimal max);
 
 
 }
