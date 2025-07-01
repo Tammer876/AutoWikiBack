@@ -90,4 +90,12 @@ public class MailService {
     public String generateResetToken() {
         return UUID.randomUUID().toString();
     }
+
+    public String generateApprovalToken() {
+        return UUID.randomUUID().toString();
+    }
+
+    public String generateDenialToken() {
+        return UUID.randomUUID().toString();
+    }
 }
