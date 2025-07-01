@@ -27,6 +27,10 @@ public class Article {
 
     private boolean isApproved = false;
 
+    private String approvalToken;
+
+    private String denialToken;
+
     @NotBlank(message = "Manufacturer is required")
     private String proposedManufacturer;
 
@@ -149,6 +153,22 @@ public class Article {
 
     public void setApproved(boolean approved) {
         isApproved = approved;
+    }
+
+    public String getApprovalToken() {
+        return approvalToken;
+    }
+
+    public void setApprovalToken(String approvalToken) {
+        this.approvalToken = approvalToken;
+    }
+
+    public String getDenialToken() {
+        return denialToken;
+    }
+
+    public void setDenialToken(String denialToken) {
+        this.denialToken = denialToken;
     }
 
     public String getProposedManufacturer() {
