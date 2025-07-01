@@ -122,6 +122,3 @@ public class CarService {
     }
 
 }
-// gear_type fuel_type engine_displacement engine_power engine_torque production_start_year production_end_year price number_of_seats body_type number_of_doors length width
-//height wheelbase weight
-//acceleration_to_hundred top_speed drive_wheels_configuration weight perhp image_url
