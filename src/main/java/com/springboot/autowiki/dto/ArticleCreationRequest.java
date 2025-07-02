@@ -2,14 +2,15 @@ package com.springboot.autowiki.dto;
 
 
 import jakarta.annotation.Nullable;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 
 public class ArticleCreationRequest {
+
+    @NotNull
+    @Positive
+    private Long carId;
 
     @NotBlank(message = "Manufacturer is required")
     private String proposedManufacturer;
@@ -98,6 +99,14 @@ public class ArticleCreationRequest {
 
     @NotBlank(message = "Image url is required")
     private String proposedImageUrl;
+
+    public Long getCarId() {
+        return carId;
+    }
+
+    public void setCarId(Long carId) {
+        this.carId = carId;
+    }
 
     public String getProposedManufacturer() {
         return proposedManufacturer;
