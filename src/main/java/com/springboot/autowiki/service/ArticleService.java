@@ -5,7 +5,6 @@ import com.springboot.autowiki.exception.RegularCarWithoutEngineDisplacementExce
 import com.springboot.autowiki.model.Article;
 import com.springboot.autowiki.repository.ArticleRepository;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 
 @Service
