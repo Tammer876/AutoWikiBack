@@ -70,6 +70,7 @@ public Article createArticle(Long carId, String createdBy, String proposedManufa
     article.setApprovalToken(approvalToken);
     article.setDenialToken(denialToken);
 
+    mailService.sendArticleApprovalLink(article);
     Article savedArticle = articleRepository.save(article);
 
     return savedArticle;
