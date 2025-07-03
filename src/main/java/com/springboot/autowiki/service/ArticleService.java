@@ -6,6 +6,7 @@ import com.springboot.autowiki.model.Article;
 import com.springboot.autowiki.model.Car;
 import com.springboot.autowiki.repository.ArticleRepository;
 import com.springboot.autowiki.repository.CarRepository;
+import com.springboot.autowiki.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -16,11 +17,13 @@ public class ArticleService {
 private final ArticleRepository articleRepository;
 private final MailService mailService;
     private final CarRepository carRepository;
+    private final UserRepository userRepository;
 
-    public ArticleService(ArticleRepository articleRepository, MailService mailService, CarRepository carRepository) {
+    public ArticleService(ArticleRepository articleRepository, MailService mailService, CarRepository carRepository, UserRepository userRepository) {
     this.articleRepository = articleRepository;
     this.mailService = mailService;
     this.carRepository = carRepository;
+    this.userRepository = userRepository;
     }
 
 public Article createArticle(Long carId, String createdBy, String proposedManufacturer, String proposedModel,
@@ -118,6 +121,7 @@ public boolean approveArticle(String token) {
     car.setWeightPerHP(article.getProposedWeightPerHP());
     car.setImageUrl(article.getProposedImageUrl());
 
+    mailService.sendChangeApprovalEmail(userRepository.findByEmail(article.getCreatedBy()).get());
     carRepository.save(car);
 
     return true;
