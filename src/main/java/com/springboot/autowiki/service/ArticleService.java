@@ -3,20 +3,25 @@ package com.springboot.autowiki.service;
 import com.springboot.autowiki.exception.ElectricCarWithEngineDisplacementException;
 import com.springboot.autowiki.exception.RegularCarWithoutEngineDisplacementException;
 import com.springboot.autowiki.model.Article;
+import com.springboot.autowiki.model.Car;
 import com.springboot.autowiki.repository.ArticleRepository;
+import com.springboot.autowiki.repository.CarRepository;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @Service
 public class ArticleService {
 
 private final ArticleRepository articleRepository;
 private final MailService mailService;
+    private final CarRepository carRepository;
 
-public ArticleService(ArticleRepository articleRepository, MailService mailService) {
+    public ArticleService(ArticleRepository articleRepository, MailService mailService, CarRepository carRepository) {
     this.articleRepository = articleRepository;
     this.mailService = mailService;
-}
+    this.carRepository = carRepository;
+    }
 
 public Article createArticle(Long carId, String createdBy, String proposedManufacturer, String proposedModel,
                              String proposedGearType, String proposedFuelType, Integer proposedEngineDisplacement,
@@ -118,14 +123,15 @@ public boolean approveArticle(String token) {
     return true;
 }
 
-    /*public boolean denyArticle(String token) {
+    public boolean denyArticle(String token) {
         Optional<Article> optionalArticle = articleRepository.findByDenialToken(token);
 
         if (optionalArticle.isEmpty()) {
             return false;
         }
 
+        articleRepository.delete(optionalArticle.get());
         return true;
-    }*/
-    // method development in progress.
+    }
+
 }
