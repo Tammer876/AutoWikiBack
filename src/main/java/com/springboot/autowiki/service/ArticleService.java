@@ -75,5 +75,57 @@ public Article createArticle(Long carId, String createdBy, String proposedManufa
     return savedArticle;
 }
 
+public boolean approveArticle(String token) {
+    Optional<Article> optionalArticle = articleRepository.findByApprovalToken(token);
 
+    if (optionalArticle.isEmpty()) {
+        return false;
+    }
+
+    Article article = optionalArticle.get();
+    article.setApproved(true);
+    article.setApprovalToken(null);
+    article.setDenialToken(null);
+    articleRepository.save(article);
+
+    Optional<Car> optionalCar = carRepository.findById(article.getCarId());
+    Car car = optionalCar.get();
+    car.setManufacturer(article.getProposedManufacturer());
+    car.setModel(article.getProposedModel());
+    car.setGearType(article.getProposedGearType());
+    car.setFuelType(article.getProposedFuelType());
+    car.setEngineDisplacement(article.getProposedEngineDisplacement());
+    car.setEnginePower(article.getProposedEnginePower());
+    car.setEngineTorque(article.getProposedEngineTorque());
+    car.setProductionStartYear(article.getProposedProductionStartYear());
+    car.setProductionEndYear(article.getProposedProductionEndYear());
+    car.setPrice(article.getProposedPrice());
+    car.setNumberOfSeats(article.getProposedNumberOfSeats());
+    car.setNumberOfDoors(article.getProposedNumberOfDoors());
+    car.setLength(article.getProposedLength());
+    car.setWidth(article.getProposedWidth());
+    car.setHeight(article.getProposedHeight());
+    car.setWheelbase(article.getProposedWheelbase());
+    car.setWeight(article.getProposedWeight());
+    car.setAccelerationToHundred(article.getProposedAccelerationToHundred());
+    car.setTopSpeed(article.getProposedTopSpeed());
+    car.setDriveWheelsConfiguration(article.getProposedDriveWheelsConfiguration());
+    car.setWeightPerHP(article.getProposedWeightPerHP());
+    car.setImageUrl(article.getProposedImageUrl());
+
+    carRepository.save(car);
+
+    return true;
+}
+
+    /*public boolean denyArticle(String token) {
+        Optional<Article> optionalArticle = articleRepository.findByDenialToken(token);
+
+        if (optionalArticle.isEmpty()) {
+            return false;
+        }
+
+        return true;
+    }*/
+    // method development in progress.
 }
