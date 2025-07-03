@@ -150,7 +150,7 @@ public class MailService {
             helper.setTo(user.getEmail());
             helper.setSubject("Change proposal consideration");
             helper.setText(
-                    "<p>Hi " + user.getNickname() +",</p>" +
+                    "<p>Hi " + user.getNickname() + ",</p>" +
                         "<p>Upon careful considerations, we decided to approve the changes you proposed. The edited version is already available on the website.</p>",
                     true
             );
@@ -158,6 +158,24 @@ public class MailService {
             mailSender.send(message);
         } catch (MessagingException e) {
             throw new RuntimeException("Failed to send change approval email.", e);
+        }
+    }
+
+    public void sendChangeRejectionEmail(User user) {
+        try {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setTo(user.getEmail());
+            helper.setSubject("Change proposal consideration");
+            helper.setText(
+                    "<p>Hi " + user.getNickname() + ",</p>" +
+                    "<p>Upon careful considerations, we, unfortunately, decided to reject the changes you proposed. They will not be applied to the article on AutoWiki.</p>",
+                    true
+            );
+
+            mailSender.send(message);
+        } catch (MessagingException e) {
+            throw new RuntimeException("Failed to send change rejection email.", e);
         }
     }
 

@@ -10,5 +10,4 @@ public interface ArticleRepository extends JpaRepository<Article,Long> {
     Optional<Article> findByApprovalToken(String token);
     Optional<Article> findByDenialToken(String token);
 
-
 }

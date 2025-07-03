@@ -91,6 +91,9 @@ public boolean approveArticle(String token) {
     }
 
     Article article = optionalArticle.get();
+
+    mailService.sendChangeApprovalEmail(userRepository.findByEmail(article.getCreatedBy()).get());
+
     article.setApproved(true);
     article.setApprovalToken(null);
     article.setDenialToken(null);
@@ -121,7 +124,6 @@ public boolean approveArticle(String token) {
     car.setWeightPerHP(article.getProposedWeightPerHP());
     car.setImageUrl(article.getProposedImageUrl());
 
-    mailService.sendChangeApprovalEmail(userRepository.findByEmail(article.getCreatedBy()).get());
     carRepository.save(car);
 
     return true;
@@ -134,7 +136,9 @@ public boolean approveArticle(String token) {
             return false;
         }
 
+        mailService.sendChangeRejectionEmail(userRepository.findByEmail(optionalArticle.get().getCreatedBy()).get());
         articleRepository.delete(optionalArticle.get());
+
         return true;
     }
 
