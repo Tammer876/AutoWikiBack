@@ -41,7 +41,9 @@ public class SecurityConfig {
                                 "/api/reset-password",
                                 "/api/newcar",
                                 "/api/carlist",
-                                "/api/sortcars"
+                                "/api/sortcars",
+                                "/api/approve",
+                                "/api/deny"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

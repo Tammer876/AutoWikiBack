@@ -151,7 +151,7 @@ public class MailService {
             helper.setSubject("Change proposal consideration");
             helper.setText(
                     "<p>Hi " + user.getNickname() + ",</p>" +
-                        "<p>Upon careful considerations, we decided to approve the changes you proposed. The edited version is already available on the website.</p>",
+                        "<p>Upon careful consideration, we decided to approve the changes you proposed. The edited version is already available on the website.</p>",
                     true
             );
 
@@ -169,7 +169,7 @@ public class MailService {
             helper.setSubject("Change proposal consideration");
             helper.setText(
                     "<p>Hi " + user.getNickname() + ",</p>" +
-                    "<p>Upon careful considerations, we, unfortunately, decided to reject the changes you proposed. They will not be applied to the article on AutoWiki.</p>",
+                    "<p>Upon careful consideration, we, unfortunately, decided to reject the changes you proposed. They will not be applied to the article on AutoWiki.</p>",
                     true
             );
 
